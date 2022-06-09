@@ -44,3 +44,10 @@ Key functions:
 
 class Data:
     directory = 'D:/Project/cosmic2/'
+    
+    def info(n):
+        '''Information in the form of a dictionary on the nth signature'''
+        if '_info' not in Data.__dict__.keys():
+            with open(Data.directory+'signature_descriptions.json','r') as f:
+                Data._info = json.load(f)   
+        return Data._info[str(n)]
