@@ -41,3 +41,6 @@ Key functions:
     
     Data.info also gives you information on the different signatures
 ''')
+
+class Data:
+    directory = 'D:/Project/cosmic2/'
