@@ -58,3 +58,11 @@ class Data:
         if '_sigs' not in Data.__dict__.keys():
             Data._sigs= pd.DataFrame.from_csv(Data.directory + 'mutational_fingerprints_for sample.csv')
         return Data._sigs
+
+    def all_mutations():
+        """Cosmic"""
+        if '_all_mutations' not in Data.__dict__.keys():
+            print('loading all mutations... this may take a while', end = '')
+            Data._all_mutations = pd.DataFrame.from_csv(Data.directory+'CosmicGenomeScreensMutantExport.tsv',sep = '\t')
+            print('...loaded')
+        return Data._all_mutations
