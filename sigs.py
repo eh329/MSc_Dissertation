@@ -66,3 +66,8 @@ class Data:
             Data._all_mutations = pd.DataFrame.from_csv(Data.directory+'CosmicGenomeScreensMutantExport.tsv',sep = '\t')
             print('...loaded')
         return Data._all_mutations
+    
+    def primaries():
+        if '_primaries' not in Data.__dict__.keys():
+            Data._primaries = set(Data.all_mutations()['Primary site'])
+        return Data._primaries
