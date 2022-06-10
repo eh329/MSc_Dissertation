@@ -51,3 +51,10 @@ class Data:
             with open(Data.directory+'signature_descriptions.json','r') as f:
                 Data._info = json.load(f)   
         return Data._info[str(n)]
+    
+    _samples = {}
+    
+    def sigs():
+        if '_sigs' not in Data.__dict__.keys():
+            Data._sigs= pd.DataFrame.from_csv(Data.directory + 'mutational_fingerprints_for sample.csv')
+        return Data._sigs
