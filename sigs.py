@@ -71,3 +71,8 @@ class Data:
         if '_primaries' not in Data.__dict__.keys():
             Data._primaries = set(Data.all_mutations()['Primary site'])
         return Data._primaries
+    
+    def others():
+       if '_others' not in Data.__dict__.keys():
+           Data._others = set(Data.all_mutations()['Site subtype 1'])
+       return Data._others
