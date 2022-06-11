@@ -83,3 +83,24 @@ class Data:
         sec = Data.all_mutations().loc[
             Data.all_mutations()['Site subtype 1']==cancer]
         return list(pd.concat([prim,sec])['Sample name'])
+
+    
+class MutSig:
+    '''Given a pandas series or np array of 96 mutational frequencies, decomposes them into the 30 mutation signatures
+    INPUT:
+    np.array of shape (96)
+    optional max_iter  - default maximum iteration is 50
+
+    FUNCTIONS:
+
+        show()
+        bar graph of mutational signature decomposition
+
+    ATTRIBUTES:
+
+        decompose - np.array of shape 30 = decomposition into mutational signatures
+        reconstruction - reconstruction of original vector using decomposition
+        error  - Frobenius error
+
+
+    '''    
