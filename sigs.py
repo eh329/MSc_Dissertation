@@ -76,3 +76,10 @@ class Data:
        if '_others' not in Data.__dict__.keys():
            Data._others = set(Data.all_mutations()['Site subtype 1'])
        return Data._others
+
+    def samples(cancer):
+        prim = Data.all_mutations().loc[
+            Data.all_mutations()['Primary site']==cancer]
+        sec = Data.all_mutations().loc[
+            Data.all_mutations()['Site subtype 1']==cancer]
+        return list(pd.concat([prim,sec])['Sample name'])
