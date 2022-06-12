@@ -112,3 +112,11 @@ class MutSig:
             MutSig._sigs = sigs[cols[2:32]].T.as_matrix()
             
         return MutSig._sigs
+
+    def sigs_pres():
+        if '_sigs_pres' not in MutSig.__dict__.keys():
+            #MutSig._sigs_pres = pd.DataFrame.from_csv(Data.directory+'signatures_present_primary_cancers.csv')
+            MutSig._sigs_pres = pd.DataFrame.from_csv(Data.directory+'sigs_pres.csv')
+        return MutSig._sigs_pres
+    
+    cancer_sigs = lambda cancer: list(MutSig.sigs_pres()[cancer][MutSig.sigs_pres()[cancer]==1].index)
