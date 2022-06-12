@@ -104,3 +104,11 @@ class MutSig:
 
 
     '''    
+    
+     def sigs():
+        if '_sigs' not in MutSig.__dict__.keys(): 
+            sigs = pd.DataFrame.from_csv(Data.directory+'signatures_probabilities.txt', sep = '\t')
+            cols = sigs.columns
+            MutSig._sigs = sigs[cols[2:32]].T.as_matrix()
+            
+        return MutSig._sigs
