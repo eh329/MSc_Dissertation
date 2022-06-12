@@ -120,3 +120,16 @@ class MutSig:
         return MutSig._sigs_pres
     
     cancer_sigs = lambda cancer: list(MutSig.sigs_pres()[cancer][MutSig.sigs_pres()[cancer]==1].index)
+    
+    def bump_up(short_array, index):
+
+        a0 = pd.Series(short_array)
+        a0.index = index
+
+        extra = pd.Series([0 for i in range(30)])
+        extra.index = range(1,31)
+        a1 = a0+extra
+
+        return a1.fillna(0).as_matrix()
+    
+    convert_sigs_to_pres = lambda mylist: [int(i in mylist) for i in range(30)]
