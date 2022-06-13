@@ -182,3 +182,5 @@ class MutSig:
 
 
         plt.show()
+
+# we can reduce Data.sigs to any set of samples and take the mean
