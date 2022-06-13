@@ -133,3 +133,33 @@ class MutSig:
         return a1.fillna(0).as_matrix()
     
     convert_sigs_to_pres = lambda mylist: [int(i in mylist) for i in range(30)]
+    
+    def __init__(self,s, max_iter = 50, cancer = '', sigs_to_check =[], ticks_to_show=[]):
+        self.ticks_to_show = ticks_to_show
+        self.sigs_to_check = sigs_to_check
+        self.cancer = cancer
+        if sigs_to_check!=[]:
+            pres = MutSig.convert_sigs_to_pres(sigs_to_check)
+            self.sigs = np.array([MutSig.sigs()[i] for i in range(30) if pres[i]==1])
+
+        elif cancer=='':
+            self.sigs = MutSig.sigs()
+        else:
+            pres = list(MutSig.sigs_pres()[cancer])
+            self.sigs = np.array([MutSig.sigs()[i] for i in range(30) if pres[i]==1])
+
+        Ms = np.matmul(self.sigs,s)
+        MTM  = np.matmul(self.sigs,self.sigs.T)
+        w = np.array([np.random.ranf() for i in range(self.sigs.shape[0])])
+        ws = [w]
+        self.changes =[1] 
+        i=0
+        while i<max_iter and self.changes[-1]>0.00001:
+            i+=1
+            w = w*Ms/np.matmul(MTM,w)
+            ws.append(w)
+            self.changes.append(sum((ws[-1]/ws[-1].sum()-ws[-2]/ws[-2].sum())**2))
+        self.decompose = ws[-1]
+        self.reconstruction = np.matmul(self.sigs.T,self.decompose)
+        self.error =0.5*((self.reconstruction/self.reconstruction.sum()-s/s.sum())**2).sum()
+        self.ws = ws
