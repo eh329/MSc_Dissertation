@@ -163,3 +163,22 @@ class MutSig:
         self.reconstruction = np.matmul(self.sigs.T,self.decompose)
         self.error =0.5*((self.reconstruction/self.reconstruction.sum()-s/s.sum())**2).sum()
         self.ws = ws
+        
+    def show(self):
+        if self.cancer !='':
+            self.long = MutSig.bump_up(self.decompose,MutSig.cancer_sigs(self.cancer))
+        else:
+            self.long = self.decompose
+        if self.sigs_to_check!=[]:
+            the_range=self.sigs_to_check
+        else:
+            the_range=range(1,31)
+        if self.ticks_to_show!=[]:
+            ticks_to_show = self.ticks_to_show
+        else:
+            ticks_to_show = the_range
+        plt.bar(the_range,self.long)
+        x=plt.xticks(ticks_to_show,ticks_to_show)
+
+
+        plt.show()
