@@ -188,3 +188,9 @@ def signature(samples):
     '''average signature as percentage'''
     s = Data.sigs().loc[list(samples)].mean()
     return s/s.sum()*100
+
+def other_samples(cancer,samples):
+    '''Given a list of samples in a particular cancer, will return the list of all
+    samples that are in the cancer but not in the list'''
+    all_s = Data.samples(cancer)
+    return list(set(all_s)-set(samples))
