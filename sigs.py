@@ -184,3 +184,7 @@ class MutSig:
         plt.show()
 
 # we can reduce Data.sigs to any set of samples and take the mean
+def signature(samples):
+    '''average signature as percentage'''
+    s = Data.sigs().loc[list(samples)].mean()
+    return s/s.sum()*100
