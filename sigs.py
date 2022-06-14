@@ -194,3 +194,6 @@ def other_samples(cancer,samples):
     samples that are in the cancer but not in the list'''
     all_s = Data.samples(cancer)
     return list(set(all_s)-set(samples))
+
+main_cancer  = lambda s0:list(Data.all_mutations().loc[
+    Data.all_mutations()['Sample name']==s0[0]]['Primary site'])[0]
