@@ -232,3 +232,20 @@ def breakdown(sig = '',samples = '', show = False, others = False, reduced = Fal
     if show:
         m.show()
     return m.decompose
+
+def change(samples, reduced = False,sigs_to_check = [],ticks_to_show=[]):
+    '''Shows the breakdown for the samples and for the list of samples in your cancer that are
+    not in your list. Returns a dictionary with keys as follows:
+    breakdown,others_breakdown,difference. You can also specify a list of ticks to show using the keyword ticks_to_show'''
+    
+    a = breakdown(samples = samples,others = False,show = True,
+                  reduced = reduced,sigs_to_check = sigs_to_check,ticks_to_show=ticks_to_show )
+    b = breakdown(samples = samples,others = True,show = True,
+                  reduced = reduced,sigs_to_check =sigs_to_check,ticks_to_show=ticks_to_show)
+    c = pd.Series((a-b))
+    c.index = MutSig.cancer_sigs(main_cancer(samples))
+    d = c.sort_values(ascending = False)
+    return {'breakdown':a,
+            'others_breakdown':b,
+            'difference':d}
+
