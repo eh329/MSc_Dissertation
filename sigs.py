@@ -249,3 +249,15 @@ def change(samples, reduced = False,sigs_to_check = [],ticks_to_show=[]):
             'others_breakdown':b,
             'difference':d}
 
+def find_main_sigs(sample):
+    '''Given a specific sample, the function breaks it down 10 times and 
+    each time identifies those signatures that make up more than 20% of the overall signal. It then
+    returns as a list just those signatures that turn up at least half the time.'''
+    main=[]
+    for i in range(10):
+        b = pd.Series(breakdown(samples = [sample]))
+        b.index = range(1,31)
+        main+=list(b[b>20].index)
+    mcv = pd.Series(main).value_counts()
+    sigs = list(mcv[mcv>4].index)
+    return sigs
