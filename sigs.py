@@ -197,3 +197,38 @@ def other_samples(cancer,samples):
 
 main_cancer  = lambda s0:list(Data.all_mutations().loc[
     Data.all_mutations()['Sample name']==s0[0]]['Primary site'])[0]
+
+def breakdown(sig = '',samples = '', show = False, others = False, reduced = False, cancer='',sigs_to_check=[], ticks_to_show=[]): 
+    ''' Input: either provide a signature or a list of samples using the keyword arguments sig,samples
+        The function loads all the signatures and picks out those for the samples in the list or uses the signature given.
+        Finds the mean and then decomposes them using non-negative matrix factorisation.
+        Using the keyword show - you can display this decomposition.
+        If you use the keyword others = True then it automatically finds the samples in your cancer
+        that are not in your list and calculates the breakdown for them.
+        
+        You can add your cancer manually by using the keyword cancer, and you can also specify which signatures to check
+        by using the keyword sigs_to_check. You can also specify which ticks to show using keyword ticks_to_show
+        '''
+
+    if sig !='':
+        sg=sig
+    
+    elif others == False:
+        if cancer=='':
+            cancer= main_cancer(samples)
+        sg = signature(samples)
+
+    else:
+        if cancer=='':
+            cancer = main_cancer(samples)
+        s = other_samples(cancer,samples)
+        sg = signature(list(s))
+    
+    if reduced:
+        m = MutSig(sg,cancer = cancer,sigs_to_check=sigs_to_check,ticks_to_show=ticks_to_show)
+    else:
+        m = MutSig(sg,sigs_to_check=sigs_to_check,ticks_to_show=ticks_to_show)
+    
+    if show:
+        m.show()
+    return m.decompose
