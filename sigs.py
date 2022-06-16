@@ -261,3 +261,5 @@ def find_main_sigs(sample):
     mcv = pd.Series(main).value_counts()
     sigs = list(mcv[mcv>4].index)
     return sigs
+
+cancer_samples = lambda p: Data.all_mutations()[Data.all_mutations()['Primary site']==p]['Sample name']
