@@ -263,3 +263,10 @@ def find_main_sigs(sample):
     return sigs
 
 cancer_samples = lambda p: Data.all_mutations()[Data.all_mutations()['Primary site']==p]['Sample name']
+
+def bad_samples(gene,cancer):
+    a = pd.concat([Data.all_mutations().loc[Data.all_mutations()['Primary site']==cancer],
+                   Data.all_mutations().loc[Data.all_mutations()['Site subtype 1']==cancer]])
+    b=a.loc[gene].drop_duplicates()
+    c = b.loc[b['FATHMM prediction']=='PATHOGENIC']
+    return list(c['Sample name'].drop_duplicates())
