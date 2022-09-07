@@ -1,2 +1,2 @@
 # MSc_Dissertation
-Script used in the MSc dissertation
+Script i used in my MSc dissertation.
