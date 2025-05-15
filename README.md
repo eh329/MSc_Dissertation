@@ -1,2 +1,2 @@
 # MSc_Dissertation
-Script i used in my MSc dissertation.
+Script I used in my MSc dissertation for data analysis and visualization.
